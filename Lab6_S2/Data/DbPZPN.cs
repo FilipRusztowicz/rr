@@ -18,14 +18,17 @@ namespace Data
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        { 
+        {
+            optionsBuilder.LogTo(Console.WriteLine);
             string jsonString = File.ReadAllText("appsettings.json");
             JsonNode konfiguracja = JsonNode.Parse(jsonString); 
             string connectionString = (string)konfiguracja["ConnectionString"]["Baza"];
             optionsBuilder.UseSqlServer(connectionString);
+            
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
             
             modelBuilder.Entity<Zawodnik>()
                 .HasOne(z => z.Klub)
@@ -39,10 +42,7 @@ namespace Data
                 .WithOne(z => z.Statystyka)
                 .HasForeignKey<Statystyka>(s => s.ZawodnikId)
                 .OnDelete(DeleteBehavior.Cascade); 
-
-            
-
-           
+  
             modelBuilder.Entity<Klub>().HasData(
                 new Klub { KlubId = 1, Nazwa = "Legia Warszawa", rokZalozenia = 2019 },
                 new Klub { KlubId = 2, Nazwa = "Lech Poznań", rokZalozenia = 1945 }
