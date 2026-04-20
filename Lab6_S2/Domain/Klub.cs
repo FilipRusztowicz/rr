@@ -15,6 +15,7 @@ namespace Domain
         public int KlubId { get; set; } // klucz glowny
        [Column(TypeName = "TINYINT")]
        public int rokZalozenia { get; set; }
+        //to trza zaznaczyć
        public virtual ICollection<Zawodnik> Zawodnicy { get; set; }
         
 
