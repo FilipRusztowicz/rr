@@ -8,12 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Interfaces;
 
 namespace WpfApplication
 {
     public class ZawodnikViewModel
     {
-        private ZawodnikRepository _repository;
+        private IRepository<Zawodnik> _repository;
         private Zawodnik _zawodnikEntity = null;
         public ZawodnikRecord ZawodnikRecord { get; set; }
         private ICommand _saveCommand;
@@ -116,7 +117,7 @@ namespace WpfApplication
         public ZawodnikViewModel(DbPZPN dbPZPN)
         {
             _zawodnikEntity = new Zawodnik();
-            _repository = new ZawodnikRepository(dbPZPN);
+            _repository = new Repository<Zawodnik>(dbPZPN);
             ZawodnikRecord = new ZawodnikRecord();
             GetAll();
         }

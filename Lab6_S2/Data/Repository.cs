@@ -13,44 +13,52 @@ namespace Data
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        DbContext context;
-        public Repository(DbContext dbContext) { 
-        context = dbContext;
+        private readonly DbContext _context;
+        private readonly DbSet<T> _dbSet;
+
+        
+        public Repository(DbContext dbContext)
+        {
+            _context = dbContext;
+            _dbSet = _context.Set<T>();
         }
 
-        public void Add(T dowolny)
+        public void Add(T entity)
         {
-            if (dowolny != null)
-            {
-                context.Add(dowolny);
-                context.SaveChanges();
-            }
-        }
-        public void Delete(int id)
-        {
-
-            var entity = context.Set<T>().Find(id);
             if (entity != null)
             {
-                context.Set<T>().Remove(entity);
-                context.SaveChanges();
+                _dbSet.Add(entity);
+                _context.SaveChanges();
             }
-
         }
+
+        public void Delete(int id)
+        {
+            var entity = _dbSet.Find(id);
+            if (entity != null)
+            {
+                _dbSet.Remove(entity);
+                _context.SaveChanges();
+            }
+        }
+
         public IQueryable<T> GetAll()
         {
-            return context.Set<T>();
+            return _dbSet.AsQueryable(); // Teraz zwraca IQueryable
         }
 
         public T GetById(int id)
         {
-            return context.Set<T>().Find(id);
+            return _dbSet.Find(id);
         }
 
-        public void Update(T dowolny)
+        public void Update(T entity)
         {
-            context.Set<T>().Update(dowolny);
-            context.SaveChanges();
+            if (entity != null)
+            {
+                _dbSet.Update(entity);
+                _context.SaveChanges();
+            }
         }
     }
 }
