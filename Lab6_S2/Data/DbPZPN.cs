@@ -19,12 +19,12 @@ namespace Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.LogTo(Console.WriteLine);
+            optionsBuilder.LogTo(message => System.Diagnostics.Debug.WriteLine(message), Microsoft.Extensions.Logging.LogLevel.Information);
+
             string jsonString = File.ReadAllText("appsettings.json");
-            JsonNode konfiguracja = JsonNode.Parse(jsonString); 
+            JsonNode konfiguracja = JsonNode.Parse(jsonString);
             string connectionString = (string)konfiguracja["ConnectionString"]["Baza"];
-            optionsBuilder.UseSqlServer(connectionString);
-            
+            optionsBuilder.UseSqlServer(connectionString); 
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -34,7 +34,7 @@ namespace Data
                 .HasOne(z => z.Klub)
                 .WithMany(k => k.Zawodnicy)
                 .HasForeignKey(z => z.KlubId)
-                .OnDelete(DeleteBehavior.SetNull); 
+                .OnDelete(DeleteBehavior.Cascade); 
 
            
             modelBuilder.Entity<Statystyka>()
@@ -52,7 +52,7 @@ namespace Data
             modelBuilder.Entity<Zawodnik>().HasData(
                 new Zawodnik { ZawodnikId = 1, imie = "Robert", nrKoszulki = 9, kondycja = 9.5, czyKontuzja = false, KlubId = 1 },
                 new Zawodnik { ZawodnikId = 2, imie = "Kamil", nrKoszulki = 15, kondycja = 7.0, czyKontuzja = true, KlubId = 2 },
-                new Zawodnik { ZawodnikId = 3, imie = "Wojciech", nrKoszulki = 1, kondycja = 8.0, czyKontuzja = false, KlubId = 3 }
+                new Zawodnik { ZawodnikId = 3, imie = "Wojciech", nrKoszulki = 1, kondycja = 8.0, czyKontuzja = false, KlubId = 2 }
             );
 
             

@@ -94,8 +94,8 @@ namespace WpfApplication
             }
         }
 
-        private int _klubId;
-        public int KlubId
+        private int? _klubId;
+        public int? KlubId
         {
             get
             {

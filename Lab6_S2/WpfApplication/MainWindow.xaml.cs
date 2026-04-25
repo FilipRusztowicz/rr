@@ -1,4 +1,7 @@
 ﻿using Data;
+using Domain;
+using Interfaces;
+using Services;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,8 +23,13 @@ namespace WpfApplication
         public MainWindow()
         {
             InitializeComponent();
-            DbPZPN dbPZPN = new DbPZPN();
-            this.DataContext = new ZawodnikViewModel(dbPZPN);
+           
+            DbPZPN dbContext = new DbPZPN();
+            var zawodnikRepo = new Repository<Zawodnik>(dbContext);
+            var klubRepo = new Repository<Klub>(dbContext);
+            var statystykaRepo = new Repository<Statystyka>(dbContext);
+            var raporty = new Raporty(zawodnikRepo, klubRepo, statystykaRepo);
+            this.DataContext = new ZawodnikViewModel(zawodnikRepo, raporty);
         }
 
         

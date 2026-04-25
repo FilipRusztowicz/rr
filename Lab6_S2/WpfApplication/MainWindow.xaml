@@ -5,78 +5,129 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApplication"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <StackPanel Orientation="Vertical">
-        <GroupBox Header="Student Form" Margin="10">
-            <Grid Height="150">
+        Language="en-US"
+        Title="System Zarządzania Zawodnikami" Height="650" Width="900">
+
+    <Window.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Validation.ErrorTemplate" Value="{x:Null}"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Height" Value="25"/>
+        </Style>
+    </Window.Resources>
+
+    <StackPanel Orientation="Vertical" Margin="10">
+
+        <GroupBox Header="Dane Zawodnika" Margin="0,0,0,10">
+            <Grid Margin="5">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="150"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Label Content="Imie" HorizontalAlignment="Left" 
-                       VerticalContentAlignment="Center" Grid.Column="0" Grid.Row="0"/>
-                <TextBox Grid.Row="0" Grid.Column="1" x:Name="TextBoxName" Height="27" 
-                       Text="{Binding Path=ZawodnikRecord.Imie, Mode=TwoWay}"  Margin="5"  Width="300" HorizontalAlignment="Left"/>
-                <Label Content="Kondycja" HorizontalAlignment="Left" VerticalContentAlignment="Center" 
-                       Grid.Row="1" Grid.Column="0"/>
-                <TextBox Grid.Row="1" Grid.Column="1" x:Name="TextBoxAge" Height="27" 
-                       Text="{Binding Path=ZawodnikRecord.Kondycja, Mode=TwoWay}" Margin="5" Width="70" HorizontalAlignment="Left"/>
-                <TextBlock Grid.Row="1" Grid.Column="1" x:Name="TextBlockId" 
-                       Visibility="Hidden" Text="{Binding Path=ZawodnikRecord.ZawodnikId, Mode=TwoWay}"/>
-                <Label Content="CzyKontuzja" HorizontalAlignment="Left" VerticalContentAlignment="Center" 
-                       Grid.Row="2" Grid.Column="0" />
-                <TextBox Grid.Row="2" Grid.Column="1" x:Name="TextBoxAddress" Height="27" 
-                       Text="{Binding Path=ZawodnikRecord.CzyKontuzja, Mode=TwoWay}" Margin="5" Width="300" HorizontalAlignment="Left"/>
-                <Label Content="NrKoszulki" HorizontalAlignment="Left" VerticalContentAlignment="Center" 
-                       Grid.Row="3" Grid.Column="0" />
-                <TextBox Grid.Row="3" Grid.Column="1" x:Name="TextBoxContact" Height="27"
-                       Text="{Binding Path=ZawodnikRecord.NrKoszulki, Mode=TwoWay}" Margin="5" Width="300" HorizontalAlignment="Left"/>
+
+                <Label Content="Imię:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"/>
+                <TextBox Grid.Row="0" Grid.Column="1" 
+                         Text="{Binding Path=ZawodnikRecord.Imie, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Label Content="Kondycja :" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Width="100" HorizontalAlignment="Left"
+                         Text="{Binding Path=ZawodnikRecord.Kondycja, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
+
+                <TextBlock Grid.Row="1" Grid.Column="1" Visibility="Collapsed" 
+                           Text="{Binding Path=ZawodnikRecord.ZawodnikId}"/>
+
+                <Label Content="Czy Kontuzja (True/False):" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Width="100" HorizontalAlignment="Left"
+                         Text="{Binding Path=ZawodnikRecord.CzyKontuzja, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Label Content="Nr Koszulki:" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
+                <TextBox Grid.Row="3" Grid.Column="1" Width="100" HorizontalAlignment="Left"
+                         Text="{Binding Path=ZawodnikRecord.NrKoszulki, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Label Content="Klub ID:" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"/>
+                <TextBox Grid.Row="4" Grid.Column="1" Width="100" HorizontalAlignment="Left"
+                         Text="{Binding Path=ZawodnikRecord.KlubId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Label Content="Statystyka ID:" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center"/>
+                <TextBox Grid.Row="5" Grid.Column="1" Width="100" HorizontalAlignment="Left"
+                         Text="{Binding Path=ZawodnikRecord.StatystykaId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
         </GroupBox>
-        <StackPanel Height="40" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button x:Name="ButtonSave" Content="Save" Height="30" Width="80"
-                    Command="{Binding SaveCommand}"/>
-            <Button x:Name="ButtonCancel" Content="Cancel" Height="30" Width="80" 
-                    Command="{Binding ResetCommand}" Margin="5,0,10,0"/>
+
+        <GroupBox Header="Statystyki Biznesowe (Klub ID: 1)" Margin="0,0,0,10">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="5" Padding="15,5" Margin="10">
+                    <StackPanel>
+                        <Label Content="Łączna liczba goli" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding LaczneGoleKlubu}" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+
+                <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="5" Padding="15,5" Margin="10">
+                    <StackPanel>
+                        <Label Content="Śr. kondycja zdrowych" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding SredniaKondycjaZdrowych, StringFormat={}{0:F2}}" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+
+                <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="5" Padding="15,5" Margin="10">
+                    <StackPanel>
+                        <Label Content="Liczba zawodników" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding LiczbaZawodnikowKlubu}" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </GroupBox>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,10">
+            <Button Content="Zapisz" Width="100" Height="30" Margin="5"
+                    Command="{Binding SaveCommand}" Background="LightGreen"/>
+            <Button Content="Anuluj / Reset" Width="100" Height="30" Margin="5"
+                    Command="{Binding ResetCommand}"/>
         </StackPanel>
-        <StackPanel Height="210">
-            <DataGrid x:Name="DataGridStudents" AutoGenerateColumns="False"
-                      ItemsSource="{Binding ZawodnikRecord.ZawodnikRecords}" CanUserAddRows="False" Height="200" Margin="10">
+
+        <GroupBox Header="Lista Zawodników">
+            <DataGrid x:Name="DataGridZawodnicy" AutoGenerateColumns="False" 
+                      ItemsSource="{Binding ZawodnikRecord.ZawodnikRecords}" 
+                      CanUserAddRows="False" Height="220" Margin="5">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id" Binding="{Binding Path=ZawodnikId}" Visibility="Hidden"/>
-                    <DataGridTextColumn Header="Imie" Binding="{Binding Path=Imie}" Width="100"  IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Kondycja" Binding="{Binding Path=Kondycja}" Width="50"  IsReadOnly="True"/>
-                    <DataGridTextColumn Header="CzyKontuzja" Binding="{Binding Path=CzyKontuzja}" Width="180" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="NrKoszulki" Binding="{Binding Path=NrKoszulki}" Width="125" IsReadOnly="True"/>
-                    <DataGridTemplateColumn Width="50">
+                    <DataGridTextColumn Header="ID" Binding="{Binding ZawodnikId}" Width="40"/>
+                    <DataGridTextColumn Header="Imię" Binding="{Binding Imie}" Width="120"/>
+                    <DataGridTextColumn Header="Kondycja" Binding="{Binding Kondycja}" Width="80"/>
+                    <DataGridTextColumn Header="Kontuzja" Binding="{Binding CzyKontuzja}" Width="80"/>
+                    <DataGridTextColumn Header="Nr" Binding="{Binding NrKoszulki}" Width="50"/>
+                    <DataGridTextColumn Header="Klub" Binding="{Binding KlubId}" Width="60"/>
+                    <DataGridTextColumn Header="Stat" Binding="{Binding StatystykaId}" Width="60"/>
+
+                    <DataGridTemplateColumn Width="75">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="Delete" x:Name="ButtonDelete" CommandParameter="{Binding Path=ZawodnikId}"
-                Command="{Binding Path=DataContext.DeleteCommand, RelativeSource={RelativeSource FindAncestor,
-                        AncestorType=Window}}"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    
-                    <DataGridTemplateColumn Width="50">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Content="Select" x:Name="ButtonEdit" CommandParameter="{Binding Path=ZawodnikId}"
-                                        Command="{Binding Path=DataContext.EditCommand,RelativeSource={RelativeSource FindAncestor,
-                                                AncestorType=Window}}"/>
+                                <Button Content="Wybierz" 
+                                        Command="{Binding DataContext.EditCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                        CommandParameter="{Binding ZawodnikId}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
 
+                    <DataGridTemplateColumn Width="75">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Usuń" 
+                                        Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                        CommandParameter="{Binding ZawodnikId}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
-
             </DataGrid>
-        </StackPanel>
+        </GroupBox>
     </StackPanel>
 </Window>

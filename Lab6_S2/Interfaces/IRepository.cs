@@ -14,5 +14,6 @@ namespace Interfaces
         void Add(T dowolny);
         void Update(T dowolny);
         void Delete(int id);
+
     }
 }
