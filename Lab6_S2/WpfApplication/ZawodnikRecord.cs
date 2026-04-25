@@ -79,6 +79,34 @@ namespace WpfApplication
                 OnPropertyChanged("Contact");
             }
         }
+        
+        private int _statystykaId;
+        public int StatystykaId
+        {
+            get
+            {
+                return _statystykaId;
+            }
+            set
+            {
+                _statystykaId = value;
+                OnPropertyChanged("StatystykaId");
+            }
+        }
+
+        private int _klubId;
+        public int KlubId
+        {
+            get
+            {
+                return _klubId;
+            }
+            set
+            {
+                _klubId = value;
+                OnPropertyChanged("KlubId");
+            }
+        }
 
         private ObservableCollection<ZawodnikRecord> _zawodnikRecords;
         public ObservableCollection<ZawodnikRecord> ZawodnikRecords
@@ -100,5 +128,6 @@ namespace WpfApplication
         {
             OnPropertyChanged("ZawodnikRecords");
         }
+
     }
 }

@@ -19,11 +19,14 @@ namespace Domain
         public bool czyKontuzja { get; set; }
         [MaxLength(30)]
         public string? imie { get; set; }
-
+        [ForeignKey("KlubId")]
         public int? KlubId { get; set; }
+        
         public virtual Klub? Klub { get; set; }
-
+        
         public virtual Statystyka? Statystyka { get; set; }
+        [ForeignKey("StatystykaId")]
+        public int StatystykaId { get; set; }
 
         public override string ToString()
         {

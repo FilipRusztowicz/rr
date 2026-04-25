@@ -131,7 +131,9 @@ namespace WpfApplication
                 Imie = data.imie,
                 NrKoszulki = data.nrKoszulki,
                 CzyKontuzja = data.czyKontuzja,
-                Kondycja = data.kondycja
+                Kondycja = data.kondycja,
+                StatystykaId = data.StatystykaId,
+                KlubId = data.KlubId
             }));
         }
 

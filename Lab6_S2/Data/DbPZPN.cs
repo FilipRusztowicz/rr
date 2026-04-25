@@ -52,7 +52,7 @@ namespace Data
             modelBuilder.Entity<Zawodnik>().HasData(
                 new Zawodnik { ZawodnikId = 1, imie = "Robert", nrKoszulki = 9, kondycja = 9.5, czyKontuzja = false, KlubId = 1 },
                 new Zawodnik { ZawodnikId = 2, imie = "Kamil", nrKoszulki = 15, kondycja = 7.0, czyKontuzja = true, KlubId = 2 },
-                new Zawodnik { ZawodnikId = 3, imie = "Wojciech", nrKoszulki = 1, kondycja = 8.0, czyKontuzja = false, KlubId = null } // Zawodnik bez klubu
+                new Zawodnik { ZawodnikId = 3, imie = "Wojciech", nrKoszulki = 1, kondycja = 8.0, czyKontuzja = false, KlubId = 3 }
             );
 
             
